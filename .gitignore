@@ -1,0 +1,35 @@
+# dependencies
+node_modules/
+
+# env files (never commit secrets)
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# build output
+dist/
+build/
+.next/
+out/
+
+# logs
+*.log
+npm-debug.log*
+
+# editor/os
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+
+# typescript
+*.tsbuildinfo
+
+# testing
+coverage/
+
+# supabase CLI local state
+**/supabase/.temp/
+**/supabase/.branches/
+
