@@ -1,6 +1,6 @@
 import { apiRequest } from "@/services/apiClient";
 import type { Paginated } from "@/types/api";
-import type { CoinPrice, Collection, Nft, Profile } from "@/types/nft";
+import type { CoinPrice, Collection, Nft, OnChainNft, Profile } from "@/types/nft";
 
 export const api = {
   nfts: {
@@ -20,5 +20,9 @@ export const api = {
   },
   market: {
     getPrices: () => apiRequest<CoinPrice[]>("/market/crypto"),
+  },
+  wallet: {
+    getNfts: (address: string) =>
+      apiRequest<{ chain: string; address: string; nfts: OnChainNft[] }>(`/wallet/${address}/nfts`),
   },
 };

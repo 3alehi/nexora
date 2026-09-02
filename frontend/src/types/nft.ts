@@ -49,6 +49,16 @@ export interface Profile {
   updated_at: string;
 }
 
+export interface OnChainNft {
+  contractAddress: string;
+  tokenId: string;
+  name: string | null;
+  description: string | null;
+  imageUrl: string | null;
+  collectionName: string | null;
+  tokenType: string | null;
+}
+
 export type TrackedSymbol = "ETH" | "BTC" | "SOL" | "USDT" | "USDC";
 
 export interface CoinPrice {
