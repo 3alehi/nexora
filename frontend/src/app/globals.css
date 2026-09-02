@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Nexora design tokens
+   Dark is the primary identity: deep charcoal/navy with a single
+   controlled accent (electric cyan) and strategic glassmorphism.
+   Light is a deliberately separate, bright, sophisticated theme —
+   not an inversion of dark.
+   ============================================================ */
+
+:root {
+  /* surfaces */
+  --background: #f7f8fa;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --border: #e4e7ec;
+
+  /* text */
+  --foreground: #0f1115;
+  --muted: #5b6272;
+
+  /* brand accent */
+  --accent: #0891b2;
+  --accent-foreground: #ffffff;
+  --accent-soft: #e0f7fa;
+
+  /* semantic */
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warning: #d97706;
+
+  /* glass */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(15, 17, 21, 0.08);
+  --glass-blur: 16px;
+
+  /* shadow */
+  --shadow-color: 220 20% 40%;
+}
+
+:root[data-theme="dark"],
+:root:not([data-theme="light"]) {
+  /* dark is default when no explicit theme is set, matched by media query below for system pref */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: #0a0d12;
+    --surface: #11151c;
+    --surface-raised: #161b24;
+    --border: rgba(255, 255, 255, 0.08);
+
+    --foreground: #edf0f4;
+    --muted: #8b92a3;
+
+    --accent: #22d3ee;
+    --accent-foreground: #04141a;
+    --accent-soft: rgba(34, 211, 238, 0.12);
+
+    --success: #34d399;
+    --danger: #f87171;
+    --warning: #fbbf24;
+
+    --glass-bg: rgba(17, 21, 28, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.08);
+
+    --shadow-color: 200 60% 2%;
+  }
+}
+
+:root[data-theme="dark"] {
+  --background: #0a0d12;
+  --surface: #11151c;
+  --surface-raised: #161b24;
+  --border: rgba(255, 255, 255, 0.08);
+
+  --foreground: #edf0f4;
+  --muted: #8b92a3;
+
+  --accent: #22d3ee;
+  --accent-foreground: #04141a;
+  --accent-soft: rgba(34, 211, 238, 0.12);
+
+  --success: #34d399;
+  --danger: #f87171;
+  --warning: #fbbf24;
+
+  --glass-bg: rgba(17, 21, 28, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  --shadow-color: 200 60% 2%;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
