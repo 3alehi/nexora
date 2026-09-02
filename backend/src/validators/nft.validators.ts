@@ -10,6 +10,10 @@ export const createNftSchema = z.object({
   standard: z.enum(["ERC721", "ERC1155"]).default("ERC721"),
 });
 
+export const nftIdParamSchema = z.object({
+  id: z.uuid("Invalid NFT id"),
+});
+
 export const listNftsQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(50).default(20),
