@@ -3,4 +3,5 @@ export const CACHE_TTL_MS = {
   trending: 5 * 60_000,
   nftMetadata: 60 * 60_000,
   collectionMetadata: 60 * 60_000,
+  walletNfts: 2 * 60_000,
 } as const;

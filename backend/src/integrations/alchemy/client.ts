@@ -8,11 +8,26 @@ export interface AlchemyNft {
   name: string | null;
   description: string | null;
   imageUrl: string | null;
+  collectionName: string | null;
+  tokenType: string | null;
 }
 
 export interface AlchemyResult<T> {
   available: boolean;
   data: T | null;
+}
+
+interface AlchemyGetNftsForOwnerResponse {
+  ownedNfts: Array<{
+    contract: { address: string; name?: string | null };
+    tokenId: string;
+    tokenType?: string;
+    name?: string | null;
+    description?: string | null;
+    image?: { cachedUrl?: string | null; originalUrl?: string | null };
+  }>;
+  pageKey?: string;
+  totalCount: number;
 }
 
 function getBaseUrl(): string {
@@ -49,8 +64,26 @@ async function safeGet<T>(path: string): Promise<AlchemyResult<T>> {
   }
 }
 
-export async function getNftsForOwner(ownerAddress: string): Promise<AlchemyResult<unknown>> {
-  return safeGet(`/getNFTsForOwner?owner=${encodeURIComponent(ownerAddress)}`);
+export async function getNftsForOwner(ownerAddress: string): Promise<AlchemyResult<AlchemyNft[]>> {
+  const result = await safeGet<AlchemyGetNftsForOwnerResponse>(
+    `/getNFTsForOwner?owner=${encodeURIComponent(ownerAddress)}&withMetadata=true`
+  );
+
+  if (!result.available || !result.data) {
+    return { available: false, data: null };
+  }
+
+  const nfts = result.data.ownedNfts.map((nft) => ({
+    contractAddress: nft.contract.address,
+    tokenId: nft.tokenId,
+    name: nft.name ?? null,
+    description: nft.description ?? null,
+    imageUrl: nft.image?.cachedUrl ?? nft.image?.originalUrl ?? null,
+    collectionName: nft.contract.name ?? null,
+    tokenType: nft.tokenType ?? null,
+  }));
+
+  return { available: true, data: nfts };
 }
 
 export async function getNftMetadata(contractAddress: string, tokenId: string): Promise<AlchemyResult<unknown>> {
