@@ -20,7 +20,7 @@ export function WalletNftsSection() {
       <div className="flex items-center gap-2">
         <Wallet className="h-4 w-4 text-accent" />
         <h2 className="text-lg font-semibold text-foreground">Your Wallet NFTs</h2>
-        <span className="text-xs text-muted">from the blockchain, via Alchemy</span>
+        <span className="text-xs text-muted">from the blockchain, via Zerion</span>
       </div>
 
       {isLoading ? (

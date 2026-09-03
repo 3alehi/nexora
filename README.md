@@ -19,7 +19,7 @@ Under active development. See commit history for progress — features are built
 
 **Web3**: wagmi, viem, WalletConnect, Sepolia testnet (network is configurable)
 
-**External APIs**: Alchemy NFT API, CoinGecko
+**External APIs**: Zerion NFT API, CoinGecko
 
 ## Getting Started
 
@@ -28,7 +28,7 @@ Under active development. See commit history for progress — features are built
 ```bash
 cd backend
 npm install
-cp .env.example .env   # fill in your own Supabase/Alchemy/CoinGecko keys
+cp .env.example .env   # fill in your own Supabase/Zerion/CoinGecko keys
 npm run dev
 ```
 
@@ -57,4 +57,4 @@ See `backend/.env.example` and `frontend/.env.example` for the full list. Never 
 
 ## Known Issues
 
-- The provided Alchemy API key currently returns HTTP 403 on both mainnet and Sepolia JSON-RPC/NFT API calls. This looks like a dashboard-side network/security restriction on the Alchemy app, not a code issue. The Alchemy integration (`backend/src/integrations/alchemy/`) is built to fail gracefully — NFT/collection data falls back to database-only records until this is resolved.
+- Alchemy was replaced with Zerion (`backend/src/integrations/zerion/`) as the wallet on-chain NFT provider, since Alchemy's NFT API was returning HTTP 403 in some regions. Set `ZERION_API_KEY` in `backend/.env` (free developer key at https://zerion.io/api) to enable it. Without a key, the integration fails gracefully — NFT/collection data falls back to database-only records.

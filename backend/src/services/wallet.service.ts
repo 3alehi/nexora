@@ -1,13 +1,13 @@
 import { getActiveNetwork } from "../config/network.js";
 import { CACHE_TTL_MS } from "../config/cache.js";
-import { getNftsForOwner, type AlchemyNft } from "../integrations/alchemy/client.js";
+import { getNftsForOwner, type ZerionNft } from "../integrations/zerion/client.js";
 import { ApiError } from "../utils/ApiError.js";
 import { KeyedTtlCache } from "../utils/ttlCache.js";
 
 interface WalletNftsResult {
   chain: string;
   address: string;
-  nfts: AlchemyNft[];
+  nfts: ZerionNft[];
 }
 
 const walletNftsCache = new KeyedTtlCache<WalletNftsResult>(CACHE_TTL_MS.walletNfts);
@@ -25,7 +25,7 @@ export async function getOnChainNftsForWallet(address: string): Promise<WalletNf
   if (!result.available) {
     throw ApiError.internal(
       "On-chain NFT data is temporarily unavailable. Try again later.",
-      "ALCHEMY_UNAVAILABLE"
+      "ZERION_UNAVAILABLE"
     );
   }
 

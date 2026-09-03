@@ -19,7 +19,7 @@ export const env = {
   coingeckoApiKey: process.env.COINGECKO_API_KEY ?? "",
   coingeckoApiUrl: process.env.COINGECKO_API_URL ?? "https://api.coingecko.com/api/v3",
 
-  alchemyApiKey: process.env.ALCHEMY_API_KEY ?? "",
+  zerionApiKey: process.env.ZERION_API_KEY ?? "",
 
   network: process.env.NETWORK ?? "sepolia",
 

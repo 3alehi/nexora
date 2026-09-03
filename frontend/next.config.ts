@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "nft-cdn.alchemy.com",
+        hostname: "**.zerion.io",
       },
     ],
   },
