@@ -7,7 +7,7 @@ import { CollectionCardSkeleton } from "@/components/ui/Skeleton";
 import { EmptyState } from "@/components/ui/EmptyState";
 
 export function TrendingCollections() {
-  const { data, isLoading } = useCollections({ limit: 8 });
+  const { data, isLoading } = useCollections({ limit: 8, sort: "volume" });
 
   if (isLoading) {
     return (

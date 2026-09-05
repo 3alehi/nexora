@@ -6,24 +6,47 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { cn } from "@/lib/utils";
 import { api } from "@/services/api";
-import { useCollections } from "@/features/marketplace/useCollections";
-import { useNfts } from "@/features/marketplace/useNfts";
+import { useMarketStats } from "@/features/marketplace/useMarketStats";
 
 export function MarketOverview() {
   const { data: prices, isLoading: pricesLoading } = useQuery({
     queryKey: ["market", "crypto"],
     queryFn: () => api.market.getPrices(),
   });
-  const { data: collections, isLoading: collectionsLoading } = useCollections({ limit: 1 });
-  const { data: nfts, isLoading: nftsLoading } = useNfts({ limit: 1 });
+  const { data: stats, isLoading: statsLoading } = useMarketStats();
 
   return (
     <div className="flex flex-col gap-10">
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <StatCard label="Collections" value={collections?.pagination.total} isLoading={collectionsLoading} />
-        <StatCard label="NFTs" value={nfts?.pagination.total} isLoading={nftsLoading} />
-        <StatCard label="Active Listings" value={0} isLoading={false} />
-        <StatCard label="Total Sales" value={0} isLoading={false} />
+        <StatCard label="Collections" value={stats?.totalCollections} isLoading={statsLoading} />
+        <StatCard label="NFTs" value={stats?.totalNfts} isLoading={statsLoading} />
+        <StatCard label="Active Listings" value={stats?.listedCount} isLoading={statsLoading} />
+        <StatCard label="Total Sales" value={stats?.soldCount} isLoading={statsLoading} />
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <GlassCard className="flex flex-col gap-1 p-4">
+          <span className="text-xs text-muted">Total Volume</span>
+          {statsLoading ? (
+            <Skeleton className="h-6 w-24" />
+          ) : (
+            <span className="text-xl font-bold text-foreground">{stats?.totalVolume.toLocaleString(undefined, { maximumFractionDigits: 2 })} ETH</span>
+          )}
+        </GlassCard>
+        <GlassCard className="flex flex-col gap-1 p-4">
+          <span className="text-xs text-muted">Minted</span>
+          {statsLoading ? <Skeleton className="h-6 w-16" /> : <span className="text-xl font-bold text-foreground">{stats?.mintedCount}</span>}
+        </GlassCard>
+        <GlassCard className="flex flex-col gap-1 p-4">
+          <span className="text-xs text-muted">Sell-Through</span>
+          {statsLoading ? (
+            <Skeleton className="h-6 w-16" />
+          ) : (
+            <span className="text-xl font-bold text-foreground">
+              {stats && stats.totalNfts > 0 ? `${((stats.soldCount / stats.totalNfts) * 100).toFixed(1)}%` : "—"}
+            </span>
+          )}
+        </GlassCard>
       </div>
 
       <div className="flex flex-col gap-4">

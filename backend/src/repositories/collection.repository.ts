@@ -6,11 +6,30 @@ export async function listCollections(query: ListCollectionsQuery): Promise<{ it
   const from = (query.page - 1) * query.limit;
   const to = from + query.limit - 1;
 
-  const { data, error, count } = await supabaseAdmin
-    .from("collections")
-    .select("*", { count: "exact" })
-    .order("created_at", { ascending: false })
+  let builder = supabaseAdmin.from("collections").select("*", { count: "exact" });
+
+  if (query.search) {
+    builder = builder.ilike("name", `%${query.search}%`);
+  }
+  if (query.verified !== undefined) {
+    builder = builder.eq("verified", query.verified);
+  }
+  if (query.chain) {
+    builder = builder.eq("chain", query.chain);
+  }
+
+  const sortColumn: Record<typeof query.sort, string> = {
+    newest: "created_at",
+    oldest: "created_at",
+    floor_price: "floor_price",
+    volume: "volume",
+    name: "name",
+  };
+  builder = builder
+    .order(sortColumn[query.sort], { ascending: query.sort === "oldest" || query.sort === "name" })
     .range(from, to);
+
+  const { data, error, count } = await builder;
 
   if (error) throw error;
   return { items: (data ?? []) as Collection[], total: count ?? 0 };
@@ -18,6 +37,13 @@ export async function listCollections(query: ListCollectionsQuery): Promise<{ it
 
 export async function getCollectionBySlug(slug: string): Promise<Collection | null> {
   const { data, error } = await supabaseAdmin.from("collections").select("*").eq("slug", slug).maybeSingle();
+
+  if (error) throw error;
+  return data as Collection | null;
+}
+
+export async function getCollectionById(id: string): Promise<Collection | null> {
+  const { data, error } = await supabaseAdmin.from("collections").select("*").eq("id", id).maybeSingle();
 
   if (error) throw error;
   return data as Collection | null;

@@ -17,9 +17,17 @@ export const createCollectionSchema = z.object({
   chain: z.string().min(1).default("sepolia"),
 });
 
+export const collectionIdParamSchema = z.object({
+  id: z.uuid("Invalid collection id"),
+});
+
 export const listCollectionsQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(50).default(20),
+  search: z.string().min(1).max(100).optional(),
+  verified: z.coerce.boolean().optional(),
+  chain: z.string().min(1).optional(),
+  sort: z.enum(["newest", "oldest", "floor_price", "volume", "name"]).default("newest"),
 });
 
 export type CreateCollectionInput = z.infer<typeof createCollectionSchema>;

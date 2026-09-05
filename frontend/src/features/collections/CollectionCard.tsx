@@ -33,8 +33,14 @@ export function CollectionCard({ collection }: { collection: Collection }) {
             {collection.name}
             {collection.verified ? <BadgeCheck className="h-4 w-4 shrink-0 text-accent" /> : null}
           </span>
-          <span className="text-xs text-muted">
-            Floor {collection.floor_price ?? "—"} ETH
+          <span className="flex items-center gap-2 text-xs text-muted">
+            <span>Floor {collection.floor_price ?? "—"} ETH</span>
+            {collection.volume != null ? (
+              <>
+                <span className="text-border">·</span>
+                <span>Vol {collection.volume.toLocaleString(undefined, { maximumFractionDigits: 1 })} ETH</span>
+              </>
+            ) : null}
           </span>
         </div>
       </div>

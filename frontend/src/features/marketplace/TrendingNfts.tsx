@@ -7,7 +7,7 @@ import { NFTCardSkeleton } from "@/components/ui/Skeleton";
 import { EmptyState } from "@/components/ui/EmptyState";
 
 export function TrendingNfts() {
-  const { data, isLoading } = useNfts({ limit: 10, sort: "newest" });
+  const { data, isLoading } = useNfts({ limit: 10, sort: "newest", status: "listed" });
 
   if (isLoading) {
     return (

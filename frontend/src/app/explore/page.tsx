@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { ExploreGrid } from "@/features/nft/ExploreGrid";
 import { WalletNftsSection } from "@/features/nft/WalletNftsSection";
 
@@ -17,7 +18,9 @@ export default function ExplorePage() {
           <h1 className="text-2xl font-bold text-foreground">Explore</h1>
           <p className="text-sm text-muted">Discover NFTs created on Nexora.</p>
         </div>
-        <ExploreGrid />
+        <Suspense fallback={null}>
+          <ExploreGrid />
+        </Suspense>
       </div>
     </div>
   );

@@ -11,6 +11,18 @@ export async function listNfts(query: ListNftsQuery): Promise<{ items: Nft[]; to
   if (query.collectionId) {
     builder = builder.eq("collection_id", query.collectionId);
   }
+  if (query.status) {
+    builder = builder.eq("status", query.status);
+  }
+  if (query.chain) {
+    builder = builder.eq("chain", query.chain);
+  }
+  if (query.standard) {
+    builder = builder.eq("standard", query.standard);
+  }
+  if (query.search) {
+    builder = builder.ilike("name", `%${query.search}%`);
+  }
 
   builder = builder.order("created_at", { ascending: query.sort === "oldest" }).range(from, to);
 

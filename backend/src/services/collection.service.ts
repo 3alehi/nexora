@@ -14,6 +14,14 @@ export async function getCollection(slug: string) {
   return collection;
 }
 
+export async function getCollectionById(id: string) {
+  const collection = await collectionRepository.getCollectionById(id);
+  if (!collection) {
+    throw ApiError.notFound("Collection not found");
+  }
+  return collection;
+}
+
 export async function createCollection(creatorId: string, input: CreateCollectionInput) {
   const taken = await collectionRepository.isSlugTaken(input.slug);
   if (taken) {

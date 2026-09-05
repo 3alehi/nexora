@@ -59,6 +59,15 @@ export interface OnChainNft {
   tokenType: string | null;
 }
 
+export interface MarketStats {
+  totalNfts: number;
+  totalCollections: number;
+  listedCount: number;
+  soldCount: number;
+  mintedCount: number;
+  totalVolume: number;
+}
+
 export type TrackedSymbol = "ETH" | "BTC" | "SOL" | "USDT" | "USDC";
 
 export interface CoinPrice {

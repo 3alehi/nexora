@@ -17,6 +17,11 @@ export async function getBySlug(req: Request, res: Response) {
   sendSuccess(res, collection);
 }
 
+export async function getById(req: Request, res: Response) {
+  const collection = await collectionService.getCollectionById(req.params.id);
+  sendSuccess(res, collection);
+}
+
 export async function create(req: Request, res: Response) {
   const collection = await collectionService.createCollection(req.user!.id, req.body as CreateCollectionInput);
   sendSuccess(res, collection, 201);

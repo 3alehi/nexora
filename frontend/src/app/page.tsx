@@ -2,6 +2,7 @@ import { Compass, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { CryptoPriceTicker } from "@/features/marketplace/CryptoPriceTicker";
+import { StatsStrip } from "@/features/marketplace/StatsStrip";
 import { TrendingCollections } from "@/features/marketplace/TrendingCollections";
 import { TrendingNfts } from "@/features/marketplace/TrendingNfts";
 
@@ -39,6 +40,10 @@ export default function HomePage() {
 
           <CryptoPriceTicker />
         </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <StatsStrip />
       </section>
 
       <section className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">

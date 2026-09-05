@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NavSearch } from "@/components/layout/NavSearch";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { ConnectWalletButton } from "@/features/wallet/ConnectWalletButton";
 import { siteConfig } from "@/config/site";
@@ -32,6 +33,7 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-3">
+          <NavSearch />
           <ThemeToggle />
           <ConnectWalletButton />
         </div>

@@ -16,7 +16,7 @@ interface RequestOptions {
   method?: "GET" | "POST" | "PATCH" | "DELETE";
   body?: unknown;
   accessToken?: string;
-  searchParams?: Record<string, string | number | undefined>;
+  searchParams?: Record<string, string | number | boolean | undefined>;
 }
 
 export async function apiRequest<T>(path: string, options: RequestOptions = {}): Promise<T> {

@@ -19,6 +19,10 @@ export const listNftsQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(50).default(20),
   collectionId: z.string().uuid().optional(),
   sort: z.enum(["newest", "oldest"]).default("newest"),
+  status: z.enum(["draft", "minted", "listed", "sold"]).optional(),
+  chain: z.string().min(1).optional(),
+  standard: z.enum(["ERC721", "ERC1155"]).optional(),
+  search: z.string().min(1).max(100).optional(),
 });
 
 export type CreateNftInput = z.infer<typeof createNftSchema>;
